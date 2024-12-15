@@ -54,6 +54,7 @@ function updateQuestionsDisplay() {
     questionsDiv.innerHTML = '';
     questions.forEach(question => {
         const questionThread = document.createElement('div');
+        questionThread.classList.add('question');
         const questionText = document.createElement('p');
         questionText.textContent = `Q: ${question.text}`;
         questionThread.appendChild(questionText);
