@@ -1,80 +1,54 @@
-const resourceList = document.getElementById('resource-list');
-const questionsDiv = document.getElementById('questions');
-const resourceCount = document.getElementById('resource-count');
-const questionCount = document.getElementById('question-count');
-const progressBar = document.getElementById('progress-bar');
-
-let uploadedResources = 0;
-let postedQuestions = 0;
-
-// Function to show specific sections
-function showSection(sectionId) {
-    document.querySelectorAll('.content-section').forEach(section => {
-        section.style.display = 'none';
-    });
-    document.getElementById(sectionId).style.display = 'block';
+// Save and Load Data Using Local Storage
+function saveData(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
 }
 
-// Upload Resources with Download Link
+function loadData(key) {
+    return JSON.parse(localStorage.getItem(key)) || [];
+}
+
+// Upload Resources
 function uploadResource() {
     const fileInput = document.getElementById('file-input');
     if (fileInput.files.length > 0) {
         const file = fileInput.files[0];
-        const listItem = document.createElement('li');
-        const downloadLink = document.createElement('a');
+        const resources = loadData('resources') || [];
+        resources.push({ name: file.name, url: URL.createObjectURL(file) });
+        saveData('resources', resources);
 
-        downloadLink.textContent = file.name;
-        downloadLink.href = URL.createObjectURL(file);
-        downloadLink.download = file.name;
-
-        listItem.appendChild(downloadLink);
-        resourceList.appendChild(listItem);
-
-        uploadedResources++;
+        updateResourcesDisplay();
         updateProgress();
-    } else {
-        alert("Please select a file!");
     }
 }
 
-// Add Questions and Responses
+// Display Resources
+function updateResourcesDisplay() {
+    const resources = loadData('resources');
+    resourceList.innerHTML = '';
+    resources.forEach(resource => {
+        const listItem = document.createElement('li');
+        const downloadLink = document.createElement('a');
+        downloadLink.textContent = resource.name;
+        downloadLink.href = resource.url;
+        downloadLink.download = resource.name;
+        listItem.appendChild(downloadLink);
+        resourceList.appendChild(listItem);
+    });
+}
+
+// Add Question
 function addQuestion() {
     const questionInput = document.getElementById('new-question');
     if (questionInput.value.trim() !== "") {
-        const questionThread = document.createElement('div');
-        const questionText = document.createElement('p');
-        questionText.textContent = `Q: ${questionInput.value}`;
+        const questions = loadData('questions') || [];
+        questions.push({ text: questionInput.value });
+        saveData('questions', questions);
 
-        const answerInput = document.createElement('input');
-        answerInput.placeholder = "Type your answer here...";
-
-        const answerButton = document.createElement('button');
-        answerButton.textContent = "Post Answer";
-        answerButton.onclick = () => {
-            const answerText = document.createElement('p');
-            answerText.textContent = `A: ${answerInput.value}`;
-            questionThread.appendChild(answerText);
-            answerInput.remove();
-            answerButton.remove();
-        };
-
-        questionThread.appendChild(questionText);
-        questionThread.appendChild(answerInput);
-        questionThread.appendChild(answerButton);
-        questionsDiv.appendChild(questionThread);
-
-        postedQuestions++;
+        updateQuestionsDisplay();
         updateProgress();
-        questionInput.value = "";
-    } else {
-        alert("Please enter a question!");
+        questionInput.value = '';
     }
 }
 
-// Update Progress
-function updateProgress() {
-    resourceCount.textContent = uploadedResources;
-    questionCount.textContent = postedQuestions;
-    const totalProgress = uploadedResources + postedQuestions;
-    progressBar.value = totalProgress;
-}
+// Display Questions
+function updateQuestionsD
