@@ -3,58 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduConnect Pro</title>
+    <title>Hackathon Interactive Website</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header Section -->
     <header>
-        <h1>EduConnect Pro</h1>
-        <p>Empowering Collaborative Learning</p>
+        <h1>Hackathon Interactive Platform</h1>
+        <nav>
+            <ul>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#questions">Q&A</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Navigation Tabs -->
-    <nav>
-        <button onclick="showSection('resources')">📚 Shared Resources</button>
-        <button onclick="showSection('forum')">💬 Q&A Forum</button>
-        <button onclick="showSection('progress')">📊 Progress Tracker</button>
-    </nav>
+    <section id="resources">
+        <h2>Shared Resources</h2>
+        <input type="file" id="file-input" accept="image/*,application/pdf,.docx,.xlsx">
+        <button onclick="uploadResource()">Upload</button>
+        <ul id="resource-list"></ul>
+    </section>
 
-    <!-- Main Content Sections -->
-    <main>
-        <!-- Resources Section -->
-        <section id="resources" class="content-section">
-            <h2>📚 Shared Resources</h2>
-            <input type="file" id="file-input">
-            <button onclick="uploadResource()">Upload Resource</button>
-            <ul id="resource-list">
-                <!-- Dynamically populated resources -->
-            </ul>
-        </section>
-
-        <!-- Q&A Forum Section -->
-        <section id="forum" class="content-section" style="display:none;">
-            <h2>💬 Ask a Question</h2>
-            <input type="text" id="new-question" placeholder="Type your question here...">
-            <button onclick="addQuestion()">Post Question</button>
-            <div id="questions">
-                <!-- Dynamically populated Q&A threads -->
-            </div>
-        </section>
-
-        <!-- Progress Section -->
-        <section id="progress" class="content-section" style="display:none;">
-            <h2>📊 Your Progress</h2>
-            <p>Uploaded Resources: <span id="resource-count">0</span></p>
-            <p>Questions Asked: <span id="question-count">0</span></p>
-            <progress id="progress-bar" value="0" max="20"></progress>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <p>© 2024 EduConnect Pro | Built for HackNoel</p>
-    </footer>
+    <section id="questions">
+        <h2>Q&A</h2>
+        <textarea id="new-question" placeholder="Ask a question..."></textarea>
+        <button onclick="addQuestion()">Submit</button>
+        <div id="questions-div"></div>
+    </section>
 
     <script src="script.js"></script>
 </body>
