@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hackathon Interactive Website</title>
+    <title>Hackathon Interactive Platform</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,14 +20,14 @@
     <section id="resources">
         <h2>Shared Resources</h2>
         <input type="file" id="file-input" accept="image/*,application/pdf,.docx,.xlsx">
-        <button onclick="uploadResource()">Upload</button>
+        <button id="upload-resource-button" onclick="uploadResource()">Upload</button>
         <ul id="resource-list"></ul>
     </section>
 
     <section id="questions">
         <h2>Q&A</h2>
         <textarea id="new-question" placeholder="Ask a question..."></textarea>
-        <button onclick="addQuestion()">Submit</button>
+        <button id="submit-question-button" onclick="addQuestion()">Submit</button>
         <div id="questions-div"></div>
     </section>
 
