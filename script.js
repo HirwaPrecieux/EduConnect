@@ -17,7 +17,6 @@ function uploadResource() {
         saveData('resources', resources);
 
         updateResourcesDisplay();
-        updateProgress();
     }
 }
 
@@ -45,10 +44,19 @@ function addQuestion() {
         saveData('questions', questions);
 
         updateQuestionsDisplay();
-        updateProgress();
         questionInput.value = '';
     }
 }
 
 // Display Questions
-function updateQuestionsD
+function updateQuestionsDisplay() {
+    const questions = loadData('questions');
+    questionsDiv.innerHTML = '';
+    questions.forEach(question => {
+        const questionThread = document.createElement('div');
+        const questionText = document.createElement('p');
+        questionText.textContent = `Q: ${question.text}`;
+        questionThread.appendChild(questionText);
+        questionsDiv.appendChild(questionThread);
+    });
+}
